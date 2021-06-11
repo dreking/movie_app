@@ -52,7 +52,7 @@ class Movie {
           )
           .toList();
       genres.forEach((e) {
-        genreText += '${e.name}, ';
+        genreText += '${e.name}\n';
       });
     }
 
@@ -60,12 +60,14 @@ class Movie {
       id: json['id'],
       title: json['title'],
       adult: json['adult'] as bool,
-      backdropPath: 'https://image.tmdb.org/t/p/w500/' + json['backdrop_path'],
+      backdropPath:
+          'https://image.tmdb.org/t/p/w500/' + json['backdrop_path'].toString(),
       originalLanguage: json['original_language'],
       originalTitle: json['original_title'],
       overview: json['overview'],
       popularity: json['popularity'].toDouble(),
-      posterPath: 'https://image.tmdb.org/t/p/w500/' + json['poster_path'],
+      posterPath:
+          'https://image.tmdb.org/t/p/w500/' + json['poster_path'].toString(),
       releaseDate: DateTime.parse(json['release_date']),
       video: json['video'],
       voteAverage: json['vote_average'].toDouble(),

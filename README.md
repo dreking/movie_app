@@ -8,8 +8,9 @@ To run this app, make sure you have [Flutter](https://flutter.dev) installed on 
 
 # Install
 
--   In the terminal type `flutter pub get` to install all required packages
 -   Ask developer for `.env` file for credentials
+-   Add `.env` file in the project root folder
+-   In the terminal type `flutter pub get` to install all required packages
 
 # Run
 
