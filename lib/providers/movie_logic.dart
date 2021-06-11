@@ -11,10 +11,12 @@ class MovieLogic with ChangeNotifier {
   final String _domain = getUrl();
   final String _api = getApiKey();
   final String _sessionId = getSessionId();
+  final String _accountId = getAccountId();
 
   List<Movie> _movies = [];
   List<Person> _people = [];
   List<Movie> _recommendations = [];
+  List<Movie> _favoriteMovies = [];
   Movie _movieById = Movie();
 
   List<Movie> get movies {
@@ -31,6 +33,10 @@ class MovieLogic with ChangeNotifier {
 
   List<Movie> get recommendations {
     return [..._recommendations];
+  }
+
+  List<Movie> get favoriteMovies {
+    return [..._favoriteMovies];
   }
 
   Future<void> getNowPlayingMovies() async {
@@ -135,6 +141,56 @@ class MovieLogic with ChangeNotifier {
           jsonDecode(response.body)['results'].cast<Map<String, dynamic>>();
       _recommendations =
           recommendations.map<Movie>((json) => Movie.fromJson(json)).toList();
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+      return;
+    }
+  }
+
+  Future<String> markAsFavorite(int id) async {
+    final uri = Uri.parse(
+      _domain +
+          '/account/$_accountId/favorite?api_key=$_api&language=en-US&session_id=$_sessionId',
+    );
+
+    try {
+      final response = await http.post(
+        uri,
+        body: jsonEncode(
+          {'media_type': 'movie', 'media_id': id, 'favorite': true},
+        ),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      final data = jsonDecode(response.body)['status_code'];
+
+      if (data == 1 || data == 12)
+        return 'Added to favorite';
+      else
+        return 'Something went wrong. Please try again later';
+    } catch (e) {
+      print(e);
+      return 'Something went wrong';
+    }
+  }
+
+  Future<void> getMyFavorites() async {
+    final uri = Uri.parse(
+      _domain +
+          '/account/$_accountId/favorite/movies?api_key=$_api&language=en-US&session_id=$_sessionId',
+    );
+
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode != 200) return;
+
+      final movies =
+          jsonDecode(response.body)['results'].cast<Map<String, dynamic>>();
+      _favoriteMovies =
+          movies.map<Movie>((json) => Movie.fromJson(json)).toList();
 
       notifyListeners();
     } catch (e) {
