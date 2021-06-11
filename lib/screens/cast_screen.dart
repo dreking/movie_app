@@ -52,10 +52,18 @@ class _MovieCastScreenState extends State<MovieCastScreen> {
       body: _isLoading
           ? CustomLoadingWidget()
           : ListView.builder(
+              padding: EdgeInsets.all(15),
               itemCount: people.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text('Character: ' + people[index].character!),
-                subtitle: Text('Name: ' + people[index].name!),
+              itemBuilder: (context, index) => Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                margin: EdgeInsets.all(5),
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(10),
+                  title: Text('Character: ' + people[index].character!),
+                  subtitle: Text('Name: ' + people[index].name!),
+                ),
               ),
             ),
     );
