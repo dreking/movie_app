@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:movie_app/components/custom_loading_widget.dart';
 import 'package:movie_app/models/movie.dart';
 import 'package:movie_app/providers/movie_logic.dart';
-import 'package:provider/provider.dart';
 
 class MovieCastScreen extends StatefulWidget {
   static const routeName = '/movie-cast';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:movie_app/screens/favorites_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'package:movie_app/screens/favorites_screen.dart';
 import 'package:movie_app/providers/movie_logic.dart';
 import 'package:movie_app/screens/cast_screen.dart';
 import 'package:movie_app/screens/main_screen.dart';

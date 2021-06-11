@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/components/custom_loading_widget.dart';
+import 'package:provider/provider.dart';
+
 import 'package:movie_app/providers/movie_logic.dart';
 import 'package:movie_app/widgets/movie_widget.dart';
-import 'package:provider/provider.dart';
 
 class FavoriteMoviesScreen extends StatefulWidget {
   static const routeName = '/favorite-movies';
@@ -47,13 +49,15 @@ class _FavoriteMoviesScreenState extends State<FavoriteMoviesScreen> {
       appBar: AppBar(
         title: Text('My Favorites'),
       ),
-      body: ListView.builder(
-        itemCount: movies.length,
-        itemBuilder: (context, index) => MovieWidget(
-          movie: movies[index],
-          isFavorite: true,
-        ),
-      ),
+      body: _isLoading
+          ? CustomLoadingWidget()
+          : ListView.builder(
+              itemCount: movies.length,
+              itemBuilder: (context, index) => MovieWidget(
+                movie: movies[index],
+                isFavorite: true,
+              ),
+            ),
     );
   }
 }

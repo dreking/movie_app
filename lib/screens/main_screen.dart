@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:movie_app/screens/favorites_screen.dart';
-import 'package:movie_app/widgets/movie_widget.dart';
 import 'package:provider/provider.dart';
 
+import 'package:movie_app/screens/favorites_screen.dart';
+import 'package:movie_app/widgets/movie_widget.dart';
 import 'package:movie_app/components/custom_loading_widget.dart';
 import 'package:movie_app/models/movie.dart';
 import 'package:movie_app/providers/movie_logic.dart';
@@ -51,8 +50,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final format = DateFormat.yMd();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Film Fan'),
