@@ -13,3 +13,8 @@ String getSessionId() {
   final String id = dotenv.env['SESSION_ID'] as String;
   return id;
 }
+
+String getAccountId() {
+  final String id = dotenv.env['ACCOUNT_ID'] as String;
+  return id;
+}
