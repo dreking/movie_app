@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:movie_app/screens/favorites_screen.dart';
+import 'package:movie_app/widgets/movie_widget.dart';
+import 'package:provider/provider.dart';
+
 import 'package:movie_app/components/custom_loading_widget.dart';
 import 'package:movie_app/models/movie.dart';
 import 'package:movie_app/providers/movie_logic.dart';
 import 'package:movie_app/screens/movie_details_screen.dart';
-import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/';
@@ -52,24 +55,34 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Movie App'),
+        title: Text('Film Fan'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () => Navigator.of(context).pushNamed(
+              FavoriteMoviesScreen.routeName,
+            ),
+          )
+        ],
       ),
       body: _isLoading
           ? CustomLoadingWidget()
-          : ListView.builder(
-              itemCount: _movies.length,
-              itemBuilder: (context, index) => ListTile(
-                leading: Image.network(_movies[index].posterPath!),
-                title: Text(_movies[index].title!),
-                subtitle: Text(
-                  'Release Date: ${format.format(_movies[index].releaseDate!)}' +
-                      '\nVote: ${_movies[index].voteAverage}',
+          : Column(
+              children: [
+                SizedBox(height: 20),
+                TextTitle(title: 'Now Playing'),
+                SizedBox(height: 20),
+                Expanded(
+                  child: ListView.builder(
+                    padding: EdgeInsets.all(10),
+                    itemCount: _movies.length,
+                    itemBuilder: (context, index) => MovieWidget(
+                      movie: _movies[index],
+                    ),
+                  ),
                 ),
-                onTap: () => Navigator.of(context).pushNamed(
-                  MovieDetailsScreen.routeName,
-                  arguments: _movies[index],
-                ),
-              ),
+              ],
             ),
     );
   }
