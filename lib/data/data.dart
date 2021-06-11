@@ -1,5 +1,15 @@
-// https://developers.themoviedb.org/3/movies/get-now-playing
-// https://developers.themoviedb.org/3/movies/rate-movie
-// https://developers.themoviedb.org/3/movies/get-movie-recommendations
-// https://developers.themoviedb.org/3/account/mark-as-favorite
-// https://developers.themoviedb.org/3/account/get-favorite-movies
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+String getUrl() {
+  return 'https://api.themoviedb.org/3';
+}
+
+String getApiKey() {
+  final String api = dotenv.env['API_KEY'] as String;
+  return api;
+}
+
+String getSessionId() {
+  final String id = dotenv.env['SESSION_ID'] as String;
+  return id;
+}
